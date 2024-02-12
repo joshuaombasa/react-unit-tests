@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+// import './App.css'
 import UserForm from './UserForm'
 import UserList from './UserList'
 
@@ -11,8 +10,6 @@ function App() {
   function addUser(user) {
     setUsers(prevState => [...prevState, user])
   }
-
-  console.log(users)
 
   return (
     <>
