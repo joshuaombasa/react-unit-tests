@@ -1,36 +1,54 @@
 import React, { useState } from "react";
 
-export default function UserForm({ addUser}) {
+export default function UserForm({ addUser }) {
 
-    const [email, setEmail] = useState('')
-    const [name, setName] = useState('')
+    const [formData, setFormData] = useState({
+        name: '',
+        email: ''
+    })
 
-    function handleSubmit(e) {
-        e.preventDefault()
-        addUser({name, email})
+    function handleSubmit(event) {
+        event.preventDefault()
+
+        addUser(formData)
+        setFormData({
+            name: '',
+            email: ''
+        })
     }
 
-    return <form onSubmit={handleSubmit}>
-        <div>
-            <label htmlFor="name">Name</label>
-            <input
-                id="name"
-                type="text"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-        </div>
-        <div>
-            <label htmlFor="email">Email</label>
-            <input
-                id="email"
-                type="text"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-        </div>
-        <button>Add user</button>
-    </form>
+    function handleChange(event) {
+        const { name, value } = event.target
+        setFormData(prevState => (
+            {
+                ...prevState,
+                [name]: value
+            }
+        ))
+    }
+
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label htmlFor="name">Name</label>
+                <input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                />
+            </div>
+            <div>
+                <label htmlFor="email">Email</label>
+                <input
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                />
+            </div>
+            <button>Add user</button>
+        </form>
+    )
 }
